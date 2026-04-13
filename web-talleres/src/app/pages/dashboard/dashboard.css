@@ -1,0 +1,28 @@
+.dashboard-dummy {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: var(--secondary);
+  padding: 20px;
+}
+
+.message {
+  padding: 60px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: var(--text-dark);
+}
+
+p {
+  color: #64748B;
+  font-size: 1.1rem;
+}

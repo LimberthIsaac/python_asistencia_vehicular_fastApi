@@ -1,0 +1,24 @@
+# Compiled Python files
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+*.db
+
+# Node.js
+node_modules/
+dist/
+.angular/
+
+# Flutter/Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo

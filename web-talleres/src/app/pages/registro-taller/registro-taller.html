@@ -1,0 +1,91 @@
+<div class="full-screen-container">
+  <div class="registration-card glass-panel animate-fade-in">
+    <div class="back-link">
+      <a href="/">← Volver al inicio</a>
+    </div>
+    
+    <h2>Registra tu Taller Mecánico</h2>
+    <p class="subtitle">Únete a la plataforma de asistencia más inteligente.</p>
+
+    <div *ngIf="errorMessage" class="error-banner">
+      {{ errorMessage }}
+    </div>
+    
+    <form (ngSubmit)="onSubmit()" #registrationForm="ngForm" class="registration-form">
+      <div class="form-group">
+        <label>Razón Social / Nombre del Taller</label>
+        <input type="text" name="razon_social" [(ngModel)]="tallerData.razon_social" placeholder="Ej. Taller Los Pinos" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>NIT / Identificación</label>
+          <input type="text" name="nit" [(ngModel)]="tallerData.nit" placeholder="Ej. 1234567890" required>
+        </div>
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" name="correo" [(ngModel)]="tallerData.correo" placeholder="ejemplo@taller.com" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" name="password" [(ngModel)]="tallerData.password" placeholder="••••••••" required>
+      </div>
+
+      <div class="divider">Configuración de Servicio</div>
+
+      <div class="form-group">
+        <div class="location-header">
+          <label>Ubicación del Taller</label>
+          <button type="button" class="btn-text" (click)="getCurrentLocation()">📍 Mi Ubicación</button>
+        </div>
+        
+        <div class="map-container glass-panel">
+          <google-map 
+            height="250px" 
+            width="100%" 
+            [center]="center" 
+            [zoom]="zoom" 
+            [options]="mapOptions"
+            (mapClick)="onMapClick($event)">
+            <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+          </google-map>
+        </div>
+
+        <div class="location-info" *ngIf="tallerData.ubicacion_base_latitud">
+          Coord: {{ tallerData.ubicacion_base_latitud | number:'1.4-4' }}, {{ tallerData.ubicacion_base_longitud | number:'1.4-4' }}
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label class="checkbox-container">
+          <input type="checkbox" name="es_24_7" [(ngModel)]="es247" (change)="toggle247()">
+          <span class="checkmark"></span>
+          Atención las 24 Horas
+        </label>
+      </div>
+
+      <div class="form-row" *ngIf="!es247">
+        <div class="form-group">
+          <label>Abre a las:</label>
+          <input type="time" name="horario_apertura" [(ngModel)]="tallerData.horario_apertura">
+        </div>
+        <div class="form-group">
+          <label>Cierra a las:</label>
+          <input type="time" name="horario_cierre" [(ngModel)]="tallerData.horario_cierre">
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!registrationForm.form.valid || isLoading" class="btn btn-primary submit-btn">
+        <span *ngIf="!isLoading">Completar Registro</span>
+        <span *ngIf="isLoading">Cargando...</span>
+      </button>
+    </form>
+    
+    <div class="login-prompt">
+      <span>¿Ya tienes una cuenta?</span>
+      <a style="cursor: pointer; color: var(--primary);">Iniciar Sesión</a>
+    </div>
+  </div>
+</div>
